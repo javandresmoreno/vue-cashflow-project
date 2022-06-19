@@ -61,7 +61,7 @@ const showMovements = ref(false);
   height: 75vh;
   width: 100%;
 }
-.movements .head .grip {
+.movements .movements-head .grip {
   width: 120px;
   height: 8px;
   background-color: #e5e5e5;
