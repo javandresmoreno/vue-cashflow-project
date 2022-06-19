@@ -4,7 +4,16 @@
             <HeaderComponent></HeaderComponent>
         </template>
         <template #resume>
-            <Resume></Resume>
+            <Resume 
+                :label="'Ahorro Total'"
+                :specific-date="specificDate"
+                :amount="amount"
+                :total-amount="1000000"
+            >
+                <template #graphic>Graphic</template>
+                <template #action>Action</template>
+            </Resume>
+            
         </template>
         <template #movements>
             <Movements></Movements>
@@ -19,11 +28,17 @@ import Resume from './Resume/Index.vue'
 import Movements from './Movements.vue'
 
 export default {
+    data() {
+        return {
+            amount: null, 
+            specificDate: null, 
+        }
+    },
     components: {
-    LayoutComponent,
-    HeaderComponent,
-    Resume,
-    Movements
+        LayoutComponent,
+        HeaderComponent,
+        Resume,
+        Movements
 }
 }
 </script>
