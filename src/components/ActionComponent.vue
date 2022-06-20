@@ -1,7 +1,36 @@
 <template>
     <button @click="showModal = true">Agregar movimiento</button>
     <Teleport to="#app">
-        <Modal v-show="showModal" @close-modal="showModal = false">Modal</Modal>
+        <Modal v-show="showModal" @close-modal="showModal = false">
+            <form @submit.prevent="submit">
+                <div class="field">
+                    <label>Título del movimiento</label>
+                    <input type="text" v-model="title"/>
+                </div>
+                <div class="field">
+                    <label>Monto</label>
+                    <input type="number" v-model="amount" />
+                </div>
+                <div class="field">
+                    <label>Descripción</label>
+                    <textarea rows="4" v-model="description"></textarea>
+                </div>
+                <div class="field">
+                    <label>Tipo de movimiento</label>
+                    <label class="radio-label">
+                        <input type="radio" value="Ingreso" v-model="movementType"/>
+                        <span>Ingreso</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" value="Gasto" v-model="movementType"/>
+                        <span>Gasto</span>
+                    </label>
+                </div>
+                <div class="action">
+                    <button>Agregar movimiento</button>
+                </div>
+            </form>
+        </Modal>
     </Teleport>
 </template>
 
@@ -11,6 +40,19 @@ import { ref } from "vue";
 import Modal from "./Modal.vue";
 
 const showModal = ref(false);
+
+const title = ref(""); 
+
+const amount = ref(0);
+
+const description = ref("");
+
+const movementType = ref("Ingreso");
+
+const submit = () => {
+    showModal.value = !showModal.value;
+}
+
 </script>
 
 <style scoped>
@@ -27,41 +69,52 @@ button {
     padding: 12px 36px;
     border-radius: 60px;
     box-sizing: border-box;
+    margin-block-end: 12px;
 }
-
 form {
-    font-size: 1.24rem;
-    width: 100%;
+  font-size: 1.24rem;
+  width: 100%;
 }
-
-input, textarea {
-    font-size: 1.24rem;
-    border: 2px solid var(--brand-blue);
-    border-radius: 8px;
-    padding: 8px;
+form .action {
+  padding: 0 24px;
+}
+.field {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 16px 24px;
+}
+label {
+  margin-bottom: 8px;
+}
+input,
+textarea {
+  font-size: 1.24rem;
+  border: 2px solid var(--brand-blue);
+  border-radius: 8px;
+  padding: 8px;
 }
 input[type="number"] {
-    text-align: right;
+  text-align: right;
 }
 .radio-label {
-    display: flex;
-    align-items: center;
-    margin-block-start: 8px;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
 }
 .radio-label span {
-    margin-block-start: 4px;
-    margin-inline-start: 8px;
+  margin-top: 4px;
+  margin-left: 8px;
 }
 input[type="radio"] {
-    appearance: none;
-    width: 1.24rem;
-    height: 1.24rem;
-    color: var(--brand-blue);
-    border: 2px solid var(--brand-blue);
-    border-radius: 50%;
+  appearance: none;
+  width: 1.24rem;
+  height: 1.24rem;
+  color: var(--brand-blue);
+  border: 2px solid var(--brand-blue);
+  border-radius: 50%;
 }
-
 input[type="radio"]:checked {
-    background-color: var(--brand-blue);
+  background-color: var(--brand-blue);
 }
 </style>
