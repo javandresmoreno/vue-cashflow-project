@@ -35,7 +35,7 @@
 
 <script setup>
 
-import { defineProps, toRefs, computed, ref } from 'vue';
+import { defineProps, defineEmits, toRefs, computed, ref } from 'vue';
 
 /* Props */
 
@@ -81,6 +81,8 @@ const showGreenPointer = ref(false)
 
 const pointerCoordinates = ref(0)
 
+const emit = defineEmits(["tap-select"])
+
 const tap = ({ target, touches }) => {
     showGreenPointer.value = true;
     const elementWidth = target.getBoundingClientRect().width;
@@ -89,6 +91,8 @@ const tap = ({ target, touches }) => {
 
     pointerCoordinates.value = (touchX - elementX) * 300 / elementWidth;
 
+    emit("tap-select", amounts)
+    console.log(emit)
 }
 
 const untap = () => {
