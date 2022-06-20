@@ -10,7 +10,11 @@
                 :amount="amount"
                 :total-amount="1000000"
             >
-                <template #graphic>Graphic</template>
+                <template #graphic>
+                    <Graphic
+                        :amounts="amountsGraphic"
+                    ></Graphic>
+                </template>
                 <template #action>
                     <ActionComponent></ActionComponent>
                 </template>
@@ -32,6 +36,7 @@ import HeaderComponent from './HeaderComponent.vue'
 import Resume from './Resume/Index.vue'
 import Movements from './Movements/Index.vue'
 import ActionComponent from './ActionComponent.vue'
+import Graphic from './Resume/Graphic.vue'
 
 export default {
     data() {
@@ -39,6 +44,7 @@ export default {
             label: null, 
             amount: null,
             specificDate: null,
+            amountsGraphic: [100, 200, 500, 200, -400, -500, -300, 0, 300, 500],
             movements:[
                 {
                     id: 0,
@@ -92,11 +98,12 @@ export default {
         }
     },
     components: {
-    LayoutComponent,
-    HeaderComponent,
-    Resume,
-    Movements,
-    ActionComponent
-}
+        LayoutComponent,
+        HeaderComponent,
+        Resume,
+        Movements,
+        ActionComponent,
+        Graphic
+    }
 }
 </script>
