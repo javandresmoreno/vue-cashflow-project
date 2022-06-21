@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { defineProps, toRefs } from 'vue';
+import { defineProps, defineEmits, toRefs } from 'vue';
 
 import Movement from './Movement.vue';
 
@@ -30,7 +30,10 @@ const props = defineProps({
 
 const { movements } = toRefs(props)
 
+const emit = defineEmits(['remove-movement'])
+
 const remove = (id) => {
+    emit('remove-movement', id)
     console.log("remove", id)
 }
 

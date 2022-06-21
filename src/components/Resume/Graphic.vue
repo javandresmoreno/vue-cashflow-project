@@ -35,7 +35,7 @@
 
 <script setup>
 
-import { defineProps, defineEmits, toRefs, computed, ref } from 'vue';
+import { defineProps, defineEmits, toRefs, computed, ref, watch } from 'vue';
 
 /* Props */
 
@@ -72,7 +72,7 @@ const points = computed(() => {
         const y = amountToPixels(amount); 
 
         return `${points} ${x},${y}`;
-    }, "0,100")
+    }, `0, ${amountToPixels(amounts.value.lenght ? amounts.value[0] : 0)}`)
 }) 
 
 /* Tap events for green bar */
@@ -80,6 +80,12 @@ const points = computed(() => {
 const showGreenPointer = ref(false)
 
 const pointerCoordinates = ref(0)
+
+watch(pointerCoordinates, (value) => {
+    const index = Math.ceil((value / (300 / amounts.value.length)))
+    if(index < 0 || index > amounts.value.lenght) return;
+    emit("tap-select", amounts.value[index - 1])
+})
 
 const emit = defineEmits(["tap-select"])
 
@@ -90,9 +96,6 @@ const tap = ({ target, touches }) => {
     const touchX = touches[0].clientX;
 
     pointerCoordinates.value = (touchX - elementX) * 300 / elementWidth;
-
-    emit("tap-select", amounts)
-    console.log(emit)
 }
 
 const untap = () => {
